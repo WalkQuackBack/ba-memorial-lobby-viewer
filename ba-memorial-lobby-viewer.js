@@ -1,0 +1,315 @@
+// import 'https://unpkg.com/@esotericsoftware/spine-webcomponents@4.2.*/dist/iife/spine-webcomponents.min.js';
+import { LitElement, html, css } from 'https://cdn.jsdelivr.net/npm/lit@3/+esm';
+import { map } from 'https://cdn.jsdelivr.net/npm/lit@3/directives/map.js/+esm';
+import { classMap } from 'https://cdn.jsdelivr.net/npm/lit@3/directives/class-map.js/+esm';
+
+class MemorialLobbyViewer extends LitElement {
+    constructor() {
+        super();
+        this.animation = 'Start_Idle_01';
+        this.lobbyPath = '/assets/spines/lobbies/'
+        this.loading = true;
+        this.menuOpen = false;
+        this.uiHidden = false
+    }
+
+    static properties = {
+        animation: { type: String || null },
+        lobbyPath: { type: String },
+        identifier: { type: String },
+        character: { type: String },
+        animationList: { type: Array },
+        loading: { type: Boolean },
+        separateBg: { type: Boolean },
+        menuOpen: { type: Boolean },
+        uiHidden: { type: Boolean }
+    };
+
+    static get styles() {
+        return css`
+            :host {
+                display: block;
+                position: relative;
+                aspect-ratio: var(--ba-memorial-lobby-viewer-aspect-ratio, 14/9);
+                background: var(--ba-memorial-lobby-viewer-background, #ECF5F9);
+                box-sizing: border-box;
+
+                max-height: 90vh;
+                max-height: 90lvh;
+
+                contain: style;
+            }
+
+            #spine-container, spine-skeleton, spine-overlay {
+                position: absolute;
+                inset: 0;
+            }
+
+            .ui-hidden {
+                cursor: pointer;
+            }
+
+            button, select {
+                block-size: 44px;
+                padding: 0 12px;
+                border-radius: 4px;
+                border: 0;
+                font: inherit;
+
+                background-color: var(--ba-memorial-lobby-viewer-base-color, hsl(214 36% 100% / 100%));
+                color: var(--ba-memorial-lobby-viewer-inverted-color, hsl(214 36% 30% / 100%));
+                box-shadow: 0 2px 4px hsl(0 0 0 / 20%);
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                transition: 120ms scale cubic-bezier(.25,.1,.39,1.2);
+
+                &:disabled {
+                    opacity: 0.38;
+                }
+            }
+
+            button {
+                font-size: 1.25em;
+                font-weight: 700;
+                padding: 0 20px;
+                &:not(:disabled) {
+                    cursor: pointer;
+                }
+                &:not(:disabled):active {
+                    scale: 0.925;
+                }
+            }
+
+            select {
+                inline-size: auto;
+            }
+
+            #menu-button {
+                position: absolute;
+                top: 12px;
+                right: 20px;
+                transform: skew(-10deg);
+
+                z-index: 20;
+
+                &[aria-pressed='true'] {
+                    background-color: var(--ba-memorial-lobby-viewer-inverted-color, hsl(214 36% 30% / 100%));
+                    color: var(--ba-memorial-lobby-viewer-base-color, hsl(214 36% 100% / 100%));
+                }
+            }
+
+            #menu {
+                position: absolute;
+                top: calc(44px + 12px + 8px);
+                right: 20px;
+                padding: 10px;
+                background-color: var(--ba-memorial-lobby-viewer-menu-color, hsl(0 0 100 / 70%));
+                border-radius: 8px;
+                transform: skew(-10deg);
+                
+                display: flex;
+                gap: 6px;
+                z-index: 20;
+            }
+
+            #menu > button {
+                inline-size: 48px;
+                padding: 0;
+                background-color: var(--ba-memorial-lobby-viewer-inverted-color, hsl(214 36% 30% / 100%));
+                color: var(--ba-memorial-lobby-viewer-base-color, hsl(214 36% 100% / 100%));
+            }
+
+            .loader {
+                position: absolute;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                margin-top: -16px;
+                margin-left: -16px;
+                height: 32px;
+                width: 32px;
+                border-width: 3px;
+                border-style: solid;
+                border-color: hsl(189 100 50 / 0.25);
+                border-top-color: hsl(189 100 50 / 1);
+                animation: loader 1s linear infinite;
+                z-index: 99;
+            }
+
+            @keyframes loader {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            [hidden] {
+                display: none !important;
+            }
+        `;
+    }
+
+    static shadowRootOptions = { mode: 'open', delegatesFocus: true }
+
+    get spineContainer() {
+        return this.renderRoot?.querySelector('#spine-container') ?? null;
+    }
+
+    get spineRenderer() {
+        return this.renderRoot?.querySelector('.fg') ?? null;
+    }
+
+    get spineRendererBg() {
+        return this.renderRoot?.querySelector('.bg') ?? null;
+    }
+
+    
+    connectedCallback() {
+        super.connectedCallback()
+        this.identifier = `${this.character}-memorial-lobby`
+    }
+
+    disconnectedCallback() {
+        // Clean up spine renderer to prevent memory leaks
+        this.spineRenderer.dispose();
+        if (this.separateBg) this.spineRendererBg.dispose();
+        super.disconnectedCallback();
+    }
+
+    async firstUpdated() {
+        await this.spineRenderer.whenReady;
+        if (this.separateBg) await this.spineRendererBg.whenReady;
+
+        this.loading = false
+        this.animationList = this.spineRenderer.skeleton.data.animations.map((animation) => animation.name)
+
+        this.updateAnimations()
+    }
+
+    updated(changed) {
+        if (changed.has('animation')) {
+            if (this.loading) return;
+            this.updateAnimations()
+        }
+        if (changed.has('uiHidden')) {
+            if (this.uiHidden) {
+                this.updateComplete.then(() => {
+                    this.spineContainer.addEventListener('click', () => {this.showUiOnceClick()})
+                });
+            }
+        }
+    }
+
+    updateAnimations() {
+        this.spineRenderer.state.setAnimation(0, this.animation, false)
+        if (this.spineRenderer.state.tracks[1] === null) {
+            this.spineRenderer.state.setAnimation(1, 'Idle_01', true)
+        }
+        if (this.animation === 'Start_Idle_01' || this.animation === 'Dummy') {
+            this.spineRenderer.state.setEmptyAnimation(1)
+        }
+
+        if (!this.separateBg) return;
+        const newBg = this.animation === 'Start_Idle_01' ? 'Start_Idle_01' : 'Idle_01'
+        if (newBg !== this.spineRendererBg.state.tracks[0].animation.name) {
+            this.spineRendererBg.state.setAnimation(0, newBg, false);
+        }
+    }
+
+    restartAnimations() {
+        this.spineRenderer.state.setAnimation(0, this.animation, false)
+        if (this.animation === 'Start_Idle_01' || this.animation === 'Dummy') {
+            this.spineRenderer.state.setEmptyAnimation(1)
+        } else {
+            this.spineRenderer.state.setAnimation(1, 'Idle_01', true)
+        }
+
+        if (!this.separateBg) return;
+        const newBg = this.animation === 'Start_Idle_01' ? 'Start_Idle_01' : 'Idle_01'
+        this.spineRendererBg.state.setAnimation(0, newBg, false);
+    }
+
+    transformCharacterNameToFileName(name) {
+        name = name.replace('ch', 'CH')
+        name = name.charAt(0).toUpperCase() + name.slice(1)
+        return name
+    }
+
+    showUiOnceClick() {
+        this.uiHidden = false
+        this.spineContainer.removeEventListener('click', this.showUiOnceClick)
+    }
+    
+    render() {
+        const atlasPath = `${this.lobbyPath}${this.character}/${this.transformCharacterNameToFileName(this.character)}_home.atlas`
+        const skelPath = `${this.lobbyPath}${this.character}/${this.transformCharacterNameToFileName(this.character)}_home.skel`
+
+        const bgAtlasPath = `${this.lobbyPath}${this.character}/${this.transformCharacterNameToFileName(this.character)}BG_home.atlas`
+        const bgSkelPath = `${this.lobbyPath}${this.character}/${this.transformCharacterNameToFileName(this.character)}BG_home.skel`
+
+        const rootClasses = {
+            'ui-hidden': this.uiHidden
+        };
+
+        return html`
+            <div id='spine-container' class=${classMap(rootClasses)}>
+                ${this.separateBg ? html`<spine-skeleton
+                    class='bg'
+                    identifier='${this.identifier}-bg'
+                    atlas=${bgAtlasPath}
+                    skeleton=${bgSkelPath}
+                    animation-bounds='Dummy'
+                    default-mix='0'
+                    fit='cover'
+                    clip
+                ></spine-skeleton>`: html``}
+                <spine-skeleton
+                    class='fg'
+                    identifier=${this.identifier}
+                    atlas=${atlasPath}
+                    skeleton=${skelPath}
+                    animation-bounds='Dummy'
+                    default-mix='0'
+                    fit='cover'
+                    clip
+                ></spine-skeleton>
+            </div>
+            <div id='ui' ?hidden=${this.uiHidden}>
+                <button
+                    id='menu-button'
+                    title='Toggle menu'
+                    aria-pressed=${this.menuOpen}
+                    aria-controls='controls'
+                    @click=${() => {this.menuOpen=!this.menuOpen}}
+                >
+                    Menu
+                </button>
+                <div id='menu' ?hidden=${!this.menuOpen}>
+                    <select
+                        ?disabled=${this.loading}
+                        value=${this.animation}
+                        @change=${(ev) => this.animation = ev.target.value}
+                        aria-label='Select an animation'>
+                        ${map(this.animationList, (item) => html`<option value=${item} ?selected=${item===this.animation}>${item}</option>`)}
+                    </select>
+                    <button ?disabled=${this.loading} title='Restart animation' @click=${() => {this.restartAnimations()}}>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-refresh-cw-icon lucide-refresh-cw'><path d='M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8'/><path d='M21 3v5h-5'/><path d='M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16'/><path d='M8 16H3v5'/></svg>
+                    </button>
+                    <button @click=${() => {this.uiHidden=!this.uiHidden}}>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-maximize2-icon lucide-maximize-2'><path d='M15 3h6v6'/><path d='m21 3-7 7'/><path d='m3 21 7-7'/><path d='M9 21H3v-6'/></svg>
+                    </button>
+                </div>
+            </div>
+            ${this.loading ?
+                html`<div
+                    aria-label='Content is loading...'
+                    aria-live='polite'
+                    role='progressbar'
+                    class='loader'></div>` : undefined}
+        `;
+    }
+}
+
+customElements.define('ba-memorial-lobby-viewer', MemorialLobbyViewer);
