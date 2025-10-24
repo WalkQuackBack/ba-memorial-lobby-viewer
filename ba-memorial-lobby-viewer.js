@@ -41,7 +41,7 @@ class MemorialLobbyViewer extends LitElement {
                 contain: style;
             }
 
-            #spine-container, spine-skeleton, spine-overlay {
+            #spine-container {
                 position: absolute;
                 inset: 0;
             }
