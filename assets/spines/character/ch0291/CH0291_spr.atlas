@@ -1,0 +1,61 @@
+CH0291_spr.png
+size:1024,1024
+filter:Linear,Linear
+scale:0.53
+0_default
+bounds:2,778,126,76
+offsets:5,5,136,86
+0_eye close
+bounds:896,783,123,75
+offsets:5,5,133,85
+10_embarassed 2
+bounds:2,856,126,76
+offsets:5,5,136,86
+11_embarassed 3
+bounds:140,860,126,76
+offsets:5,5,136,86
+12_serious 2
+bounds:889,939,126,80
+offsets:5,5,136,90
+1_normal
+bounds:2,934,136,85
+2_respond
+bounds:892,860,126,77
+offsets:5,5,136,87
+3_smile
+bounds:2,112,126,69
+offsets:5,5,136,79
+4_embarassed
+bounds:140,938,126,81
+offsets:5,5,136,91
+5_serious
+bounds:2,706,126,70
+offsets:5,5,136,80
+6_depressed
+bounds:381,107,120,62
+offsets:5,5,130,72
+7_smile 2
+bounds:902,637,119,69
+offsets:5,5,129,79
+8_smile 3
+bounds:258,113,121,68
+offsets:5,5,131,78
+9_smile 4
+bounds:130,113,126,68
+offsets:5,5,136,78
+CH0291
+bounds:404,2,618,428
+offsets:64,943,684,1371
+CH0291_2
+bounds:528,415,604,378
+offsets:0,594,684,1371
+rotate:270
+CH0291_3
+bounds:2,397,531,622
+offsets:13,0,684,1371
+hair
+bounds:899,708,120,73
+offsets:5,5,130,83
+halo
+bounds:111,183,292,217
+offsets:5,5,302,227

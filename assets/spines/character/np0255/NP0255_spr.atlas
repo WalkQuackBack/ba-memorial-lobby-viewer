@@ -1,0 +1,28 @@
+NP0255_spr.png
+	size: 1024, 1024
+	filter: Linear, Linear
+	scale: 0.85
+00_default
+	bounds: 235, 904, 45, 54
+01_normal
+	bounds: 336, 932, 51, 26
+02_respond
+	bounds: 282, 925, 52, 33
+03_smile
+	bounds: 169, 908, 64, 50
+04embarssed
+	bounds: 91, 914, 76, 44
+05_serious
+	bounds: 562, 933, 38, 25
+06_depressed
+	bounds: 524, 931, 36, 27
+07
+	bounds: 2, 918, 87, 40
+NP0255
+	bounds: 2, 61, 522, 897
+	offsets: 52, 654, 574, 1551
+NP0255C
+	bounds: 468, 176, 540, 782
+	offsets: 0, 0, 574, 1551
+halo
+	bounds: 687, 2, 335, 173

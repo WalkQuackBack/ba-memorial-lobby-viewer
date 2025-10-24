@@ -1,0 +1,60 @@
+CH0109_spr.png
+	size: 1024, 1024
+	filter: Linear, Linear
+	scale: 0.54
+00_default
+	bounds: 2, 726, 102, 97
+	offsets: 5, 5, 112, 107
+02_respond
+	bounds: 599, 924, 102, 98
+	offsets: 5, 5, 112, 108
+04_embarassed
+	bounds: 494, 912, 103, 110
+	offsets: 5, 5, 113, 120
+05_serious
+	bounds: 2, 308, 104, 92
+	offsets: 5, 5, 114, 102
+06_depressed
+	bounds: 120, 637, 120, 87
+	offsets: 5, 5, 130, 97
+07_emo_01
+	bounds: 124, 829, 120, 94
+	offsets: 5, 6, 130, 105
+08_smile2
+	bounds: 817, 472, 103, 93
+	offsets: 5, 5, 114, 103
+09_angry
+	bounds: 394, 918, 104, 84
+	offsets: 5, 5, 114, 94
+	rotate: 90
+10_angry eyeclose
+	bounds: 906, 567, 116, 84
+	offsets: 5, 5, 127, 94
+11_angry3
+	bounds: 919, 274, 103, 86
+	offsets: 5, 5, 114, 96
+12_pain
+	bounds: 124, 925, 120, 97
+	offsets: 5, 5, 130, 107
+13_emo_02
+	bounds: 2, 922, 120, 100
+	offsets: 5, 5, 130, 110
+14_angry4
+	bounds: 121, 726, 107, 101
+	offsets: 5, 5, 117, 111
+body
+	bounds: 441, 570, 452, 573
+	offsets: 102, 672, 673, 1248
+	rotate: 90
+body_01
+	bounds: 2, 258, 673, 764
+	offsets: 0, 0, 673, 1248
+emo_01
+	bounds: 2, 825, 117, 95
+	offsets: 1, 1, 120, 97
+eyeclose
+	bounds: 676, 524, 102, 95
+	offsets: 5, 5, 112, 105
+halo
+	bounds: 573, 276, 449, 204
+	offsets: 0, 3, 449, 210

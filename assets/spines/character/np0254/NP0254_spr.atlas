@@ -1,0 +1,56 @@
+NP0254_spr.png
+	size: 1024, 1024
+	filter: Linear, Linear
+	scale: 0.68
+00_default
+	bounds: 2, 402, 136, 103
+	offsets: 6, 6, 148, 115
+00_eye_close
+	bounds: 626, 436, 126, 91
+	offsets: 7, 6, 139, 103
+	rotate: 90
+01_normal
+	bounds: 550, 564, 148, 103
+02_respond
+	bounds: 2, 299, 138, 101
+	offsets: 6, 6, 150, 113
+03_smile
+	bounds: 2, 100, 135, 91
+	offsets: 6, 6, 147, 103
+04_embrassed
+	bounds: 880, 799, 131, 112
+	offsets: 6, 6, 143, 124
+05_serious
+	bounds: 854, 12, 132, 80
+	offsets: 6, 6, 144, 92
+06_depressed
+	bounds: 897, 94, 125, 107
+	offsets: 6, 6, 137, 119
+07
+	bounds: 854, 512, 134, 106
+	offsets: 6, 6, 146, 118
+08
+	bounds: 2, 6, 126, 92
+	offsets: 7, 6, 139, 104
+09
+	bounds: 2, 193, 129, 104
+	offsets: 6, 6, 141, 116
+10
+	bounds: 139, 93, 130, 94
+	offsets: 6, 6, 142, 106
+11
+	bounds: 375, 87, 135, 87
+	offsets: 6, 6, 147, 99
+12
+	bounds: 2, 507, 163, 114
+	offsets: 7, 6, 177, 126
+NP0254
+	bounds: 2, 169, 614, 742
+	offsets: 0, 560, 713, 1302
+NP0254C
+	bounds: 430, 2, 592, 584
+	offsets: 121, 0, 713, 1302
+halo_1
+	bounds: 844, 620, 178, 154
+halo_2
+	bounds: 617, 669, 261, 242

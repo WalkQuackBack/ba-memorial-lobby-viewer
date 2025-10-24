@@ -1,0 +1,57 @@
+NP0248_spr.png
+	size: 1024, 1024
+	filter: Linear, Linear
+	scale: 0.6
+02_respond
+	bounds: 2, 156, 112, 108
+	offsets: 6, 6, 124, 120
+04_embarassed
+	bounds: 636, 490, 114, 122
+	offsets: 5, 6, 125, 134
+05_serious
+	bounds: 116, 161, 115, 103
+	offsets: 6, 5, 127, 113
+06_depressed
+	bounds: 890, 176, 132, 96
+	offsets: 6, 6, 144, 108
+07
+	bounds: 833, 468, 132, 105
+	offsets: 6, 6, 144, 117
+08
+	bounds: 347, 161, 114, 103
+	offsets: 6, 6, 126, 115
+09
+	bounds: 579, 117, 115, 92
+	offsets: 6, 6, 127, 104
+10
+	bounds: 538, 930, 129, 92
+	offsets: 6, 6, 141, 104
+11
+	bounds: 463, 137, 114, 95
+	offsets: 6, 6, 126, 107
+12
+	bounds: 28, 681, 132, 107
+	offsets: 6, 6, 144, 119
+13
+	bounds: 2, 790, 132, 111
+	offsets: 6, 6, 144, 122
+14
+	bounds: 128, 904, 118, 112
+	offsets: 6, 6, 130, 124
+	rotate: 90
+body
+	bounds: 367, 525, 497, 641
+	offsets: 54, 744, 641, 1387
+	rotate: 90
+body_01
+	bounds: 2, 264, 640, 758
+	offsets: 0, 2, 641, 1387
+default
+	bounds: 2, 903, 124, 119
+eyeclose
+	bounds: 233, 159, 112, 105
+	offsets: 6, 6, 124, 117
+halo
+	bounds: 523, 196, 499, 232
+	offsets: 0, 1, 499, 233
+	rotate: 180
