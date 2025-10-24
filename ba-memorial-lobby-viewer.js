@@ -1,4 +1,3 @@
-// import 'https://unpkg.com/@esotericsoftware/spine-webcomponents@4.2.*/dist/iife/spine-webcomponents.min.js';
 import { LitElement, html, css } from 'https://cdn.jsdelivr.net/npm/lit@3/+esm';
 import { map } from 'https://cdn.jsdelivr.net/npm/lit@3/directives/map.js/+esm';
 import { classMap } from 'https://cdn.jsdelivr.net/npm/lit@3/directives/class-map.js/+esm';
