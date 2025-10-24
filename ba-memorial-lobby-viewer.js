@@ -157,14 +157,13 @@ class MemorialLobbyViewer extends LitElement {
     }
 
     get spineRenderer() {
-        return this.renderRoot?.querySelector('.fg') ?? null;
+        return this.renderRoot?.querySelector('#spine-skeleton-main') ?? null;
     }
 
     get spineRendererBg() {
-        return this.renderRoot?.querySelector('.bg') ?? null;
+        return this.renderRoot?.querySelector('#spine-skeleton-bg') ?? null;
     }
 
-    
     connectedCallback() {
         super.connectedCallback()
         this.identifier = `${this.character}-memorial-lobby`
@@ -195,7 +194,9 @@ class MemorialLobbyViewer extends LitElement {
         if (changed.has('uiHidden')) {
             if (this.uiHidden) {
                 this.updateComplete.then(() => {
-                    this.spineContainer.addEventListener('click', () => {this.showUiOnceClick()})
+                    this.spineContainer.addEventListener('click', () => {this.showUiOnInteract()})
+                    this.spineContainer.addEventListener('keydown', () => {this.showUiOnInteract()})
+                    this.spineContainer.focus()
                 });
             }
         }
@@ -236,9 +237,11 @@ class MemorialLobbyViewer extends LitElement {
         return name
     }
 
-    showUiOnceClick() {
+    showUiOnInteract() {
         this.uiHidden = false
-        this.spineContainer.removeEventListener('click', this.showUiOnceClick)
+        this.spineContainer.removeEventListener('click', this.showUiOnInteract)
+        this.spineContainer.removeEventListener('keydown', this.showUiOnInteract)
+        this.renderRoot?.querySelector('#hide-ui-btn').focus()
     }
     
     render() {
@@ -253,9 +256,9 @@ class MemorialLobbyViewer extends LitElement {
         };
 
         return html`
-            <div id='spine-container' class=${classMap(rootClasses)}>
+            <div id='spine-container' class=${classMap(rootClasses)} tabIndex='0'>
                 ${this.separateBg ? html`<spine-skeleton
-                    class='bg'
+                    id='spine-skeleton-bg'
                     identifier='${this.identifier}-bg'
                     atlas=${bgAtlasPath}
                     skeleton=${bgSkelPath}
@@ -265,7 +268,7 @@ class MemorialLobbyViewer extends LitElement {
                     clip
                 ></spine-skeleton>`: html``}
                 <spine-skeleton
-                    class='fg'
+                    id='spine-skeleton-main'
                     identifier=${this.identifier}
                     atlas=${atlasPath}
                     skeleton=${skelPath}
@@ -278,26 +281,27 @@ class MemorialLobbyViewer extends LitElement {
             <div id='ui' ?hidden=${this.uiHidden}>
                 <button
                     id='menu-button'
-                    title='Toggle menu'
+                    title='Toggle animation controls'
                     aria-pressed=${this.menuOpen}
                     aria-controls='menu'
                     @click=${() => {this.menuOpen=!this.menuOpen}}
                 >
                     Menu
                 </button>
-                <div id='menu' ?hidden=${!this.menuOpen}>
+                <div id='menu' role="group" aria-label="Animation controls" ?hidden=${!this.menuOpen}>
                     <select
                         ?disabled=${this.loading}
+                        id="animation"
                         value=${this.animation}
                         @change=${(ev) => this.animation = ev.target.value}
                         aria-label='Select an animation'>
                         ${map(this.animationList, (item) => html`<option value=${item} ?selected=${item===this.animation}>${item}</option>`)}
                     </select>
-                    <button ?disabled=${this.loading} title='Restart animation' @click=${() => {this.restartAnimations()}}>
-                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-refresh-cw-icon lucide-refresh-cw'><path d='M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8'/><path d='M21 3v5h-5'/><path d='M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16'/><path d='M8 16H3v5'/></svg>
+                    <button title='Restart animation' id='restart-animation-btn' ?disabled=${this.loading} @click=${() => {this.restartAnimations()}}>
+                        <svg xmlns='http://www.w3.org/2000/svg' role='presentation' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-refresh-cw-icon lucide-refresh-cw'><path d='M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8'/><path d='M21 3v5h-5'/><path d='M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16'/><path d='M8 16H3v5'/></svg>
                     </button>
-                    <button @click=${() => {this.uiHidden=!this.uiHidden}}>
-                        <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-maximize2-icon lucide-maximize-2'><path d='M15 3h6v6'/><path d='m21 3-7 7'/><path d='m3 21 7-7'/><path d='M9 21H3v-6'/></svg>
+                    <button title='Hide UI' id='hide-ui-btn' @click=${() => {this.uiHidden=!this.uiHidden}}>
+                        <svg xmlns='http://www.w3.org/2000/svg' role='presentation' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-maximize2-icon lucide-maximize-2'><path d='M15 3h6v6'/><path d='m21 3-7 7'/><path d='m3 21 7-7'/><path d='M9 21H3v-6'/></svg>
                     </button>
                 </div>
             </div>
