@@ -6,24 +6,48 @@ class MemorialLobbyViewer extends LitElement {
     constructor() {
         super();
         this.animation = 'Start_Idle_01';
-        this.lobbyPath = 'assets/spines/lobbies/'
-        this.loading = true;
-        this.menuOpen = false;
-        this.uiHidden = false
+        this.basePath = 'assets/spines/lobbies/';
+        this.separateBg = false
+
+        this.character = '';
+
+        this._animationList = [];
+        this._identifier = '';
+        this._loading = true;
+        this._menuOpen = false;
+        this._uiHidden = false;
+
+        this._atlasPath = '';
+        this._skelPath = '';
+        this._bgAtlasPath = '';
+        this._bgSkelPath = '';
 
         this._boundShowUiOnInteract = this.showUiOnInteract.bind(this);
     }
 
     static properties = {
         animation: { type: String || null },
-        lobbyPath: { type: String },
-        identifier: { type: String },
-        character: { type: String },
-        animationList: { type: Array },
-        loading: { type: Boolean },
+        basePath: { type: String },
         separateBg: { type: Boolean },
-        menuOpen: { type: Boolean },
-        uiHidden: { type: Boolean }
+        
+        character: { type: String },
+        
+        // Internal state
+        _animationList: { type: Array, state: true },
+        _identifier: { type: String, state: true },
+        _loading: { type: Boolean, state: true },
+        _menuOpen: { type: Boolean, state: true },
+        _uiHidden: { type: Boolean, state: true },
+
+        _atlasPath: { type: String, state: true },
+        _skelPath: { type: String, state: true },
+        _bgAtlasPath: { type: String, state: true },
+        _bgSkelPath: { type: String, state: true },
+        
+        atlasName: { type: String || null },
+        skelName: { type: String || null },
+        bgAtlasName: { type: String || null },
+        bgSkelName: { type: String || null },
     };
 
     static get styles() {
@@ -31,7 +55,7 @@ class MemorialLobbyViewer extends LitElement {
             :host {
                 display: block;
                 position: relative;
-                aspect-ratio: var(--ba-memorial-lobby-viewer-aspect-ratio, 14/9);
+                aspect-ratio: var(--ba-memorial-lobby-viewer-aspect-ratio, 379/213);
                 background: var(--ba-memorial-lobby-viewer-background, #ECF5F9);
                 box-sizing: border-box;
 
@@ -168,7 +192,18 @@ class MemorialLobbyViewer extends LitElement {
 
     connectedCallback() {
         super.connectedCallback()
-        this.identifier = `${this.character}-memorial-lobby`
+        this._identifier = `${this.character}-memorial-lobby`
+
+        this.atlasName ??= `${this.transformCharacterNameToFileName(this.character)}_home.atlas`;
+        this.skelName ??= `${this.transformCharacterNameToFileName(this.character)}_home.skel`;
+        this.bgAtlasName ??= `${this.transformCharacterNameToFileName(this.character)}BG_home.atlas`;
+        this.bgSkelName ??= `${this.transformCharacterNameToFileName(this.character)}BG_home.skel`;
+
+        this._atlasPath = `${this.basePath}${this.character}/${this.atlasName}`
+        this._skelPath = `${this.basePath}${this.character}/${this.skelName}`
+
+        this._bgAtlasPath = `${this.basePath}${this.character}/${this.bgAtlasName}`
+        this._bgSkelPath = `${this.basePath}${this.character}/${this.bgSkelName}`
     }
 
     disconnectedCallback() {
@@ -182,19 +217,19 @@ class MemorialLobbyViewer extends LitElement {
         await this.spineRenderer.whenReady;
         if (this.separateBg) await this.spineRendererBg.whenReady;
 
-        this.loading = false
-        this.animationList = this.spineRenderer.skeleton.data.animations.map((animation) => animation.name)
+        this._loading = false
+        this._animationList = this.spineRenderer.skeleton.data.animations.map((animation) => animation.name)
 
         this.updateAnimations()
     }
 
     updated(changed) {
         if (changed.has('animation')) {
-            if (this.loading) return;
+            if (this._loading) return;
             this.updateAnimations()
         }
-        if (changed.has('uiHidden')) {
-            if (this.uiHidden) {
+        if (changed.has('_uiHidden')) {
+            if (this._uiHidden) {
                 this.spineContainer.addEventListener('click', this._boundShowUiOnInteract)
                 this.spineContainer.addEventListener('keydown', this._boundShowUiOnInteract)
                 this.spineContainer.focus()
@@ -207,12 +242,12 @@ class MemorialLobbyViewer extends LitElement {
         if (this.spineRenderer.state.tracks[1] === null) {
             this.spineRenderer.state.setAnimation(1, 'Idle_01', true)
         }
-        if (this.animation === 'Start_Idle_01' || this.animation === 'Dummy') {
+        if (this.animation.startsWith('Start_Idle') || this.animation === 'Dummy') {
             this.spineRenderer.state.setEmptyAnimation(1)
         }
 
         if (!this.separateBg) return;
-        const newBg = this.animation === 'Start_Idle_01' ? 'Start_Idle_01' : 'Idle_01'
+        const newBg = this.animation.startsWith('Start_Idle') ? 'Start_Idle_01' : 'Idle_01'
         if (newBg !== this.spineRendererBg.state.tracks[0].animation.name) {
             this.spineRendererBg.state.setAnimation(0, newBg, false);
         }
@@ -220,14 +255,14 @@ class MemorialLobbyViewer extends LitElement {
 
     restartAnimations() {
         this.spineRenderer.state.setAnimation(0, this.animation, false)
-        if (this.animation === 'Start_Idle_01' || this.animation === 'Dummy') {
+        if (this.animation.startsWith('Start_Idle') || this.animation === 'Dummy') {
             this.spineRenderer.state.setEmptyAnimation(1)
         } else {
             this.spineRenderer.state.setAnimation(1, 'Idle_01', true)
         }
 
         if (!this.separateBg) return;
-        const newBg = this.animation === 'Start_Idle_01' ? 'Start_Idle_01' : 'Idle_01'
+        const newBg = this.animation.startsWith('Start_Idle') ? 'Start_Idle_01' : 'Idle_01'
         this.spineRendererBg.state.setAnimation(0, newBg, false);
     }
 
@@ -238,7 +273,7 @@ class MemorialLobbyViewer extends LitElement {
     }
 
     showUiOnInteract() {
-        this.uiHidden = false
+        this._uiHidden = false
         this.spineContainer.removeEventListener('click', this._boundShowUiOnInteract)
         this.spineContainer.removeEventListener('keydown', this._boundShowUiOnInteract)
 
@@ -248,67 +283,65 @@ class MemorialLobbyViewer extends LitElement {
     }
     
     render() {
-        const atlasPath = `${this.lobbyPath}${this.character}/${this.transformCharacterNameToFileName(this.character)}_home.atlas`
-        const skelPath = `${this.lobbyPath}${this.character}/${this.transformCharacterNameToFileName(this.character)}_home.skel`
-
-        const bgAtlasPath = `${this.lobbyPath}${this.character}/${this.transformCharacterNameToFileName(this.character)}BG_home.atlas`
-        const bgSkelPath = `${this.lobbyPath}${this.character}/${this.transformCharacterNameToFileName(this.character)}BG_home.skel`
-
         const rootClasses = {
-            'ui-hidden': this.uiHidden
+            'ui-hidden': this._uiHidden
         };
 
         return html`
             <div id='spine-container' class=${classMap(rootClasses)} tabIndex='0'>
                 ${this.separateBg ? html`<spine-skeleton
                     id='spine-skeleton-bg'
-                    identifier='${this.identifier}-bg'
-                    atlas=${bgAtlasPath}
-                    skeleton=${bgSkelPath}
-                    animation-bounds='Dummy'
-                    default-mix='0'
-                    fit='cover'
+                    identifier='${this._identifier}-bg'
+                    atlas=${this._bgAtlasPath}
+                    skeleton=${this._bgSkelPath}
+                    bounds-x="-1895"
+                    bounds-y="-314.5"
+                    bounds-width="3790"
+                    bounds-height="2132"
+                    scale="1.1"
                     clip
                 ></spine-skeleton>`: html``}
                 <spine-skeleton
                     id='spine-skeleton-main'
-                    identifier=${this.identifier}
-                    atlas=${atlasPath}
-                    skeleton=${skelPath}
-                    animation-bounds='Dummy'
-                    default-mix='0'
-                    fit='cover'
+                    identifier=${this._identifier}
+                    atlas=${this._atlasPath}
+                    skeleton=${this._skelPath}
+                    bounds-x="-1895"
+                    bounds-y="-314.5"
+                    bounds-width="3790"
+                    bounds-height="2132"
+                    scale="1.1"
                     clip
                 ></spine-skeleton>
             </div>
-            <div id='ui' ?hidden=${this.uiHidden}>
+            <div id='ui' ?hidden=${this._uiHidden}>
                 <button
                     id='menu-button'
                     title='Toggle animation controls'
-                    aria-pressed=${this.menuOpen}
+                    aria-pressed=${this._menuOpen}
                     aria-controls='menu'
-                    @click=${() => {this.menuOpen=!this.menuOpen}}
+                    @click=${() => {this._menuOpen=!this._menuOpen}}
                 >
                     Menu
                 </button>
-                <div id='menu' role="group" aria-label="Animation controls" ?hidden=${!this.menuOpen}>
+                <div id='menu' role="group" aria-label="Animation controls" ?hidden=${!this._menuOpen}>
                     <select
-                        ?disabled=${this.loading}
+                        ?disabled=${this._loading}
                         id="animation"
                         value=${this.animation}
                         @change=${(ev) => this.animation = ev.target.value}
                         aria-label='Select an animation'>
-                        ${map(this.animationList, (item) => html`<option value=${item} ?selected=${item===this.animation}>${item}</option>`)}
+                        ${map(this._animationList, (item) => html`<option value=${item} ?selected=${item===this.animation}>${item}</option>`)}
                     </select>
-                    <button title='Restart animation' id='restart-animation-btn' ?disabled=${this.loading} @click=${() => {this.restartAnimations()}}>
+                    <button title='Restart animation' id='restart-animation-btn' ?disabled=${this._loading} @click=${() => {this.restartAnimations()}}>
                         <svg xmlns='http://www.w3.org/2000/svg' role='presentation' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-refresh-cw-icon lucide-refresh-cw'><path d='M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8'/><path d='M21 3v5h-5'/><path d='M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16'/><path d='M8 16H3v5'/></svg>
                     </button>
-                    <button title='Hide UI' id='hide-ui-btn' @click=${() => {this.uiHidden=!this.uiHidden}}>
+                    <button title='Hide UI' id='hide-ui-btn' @click=${() => {this._uiHidden=!this._uiHidden}}>
                         <svg xmlns='http://www.w3.org/2000/svg' role='presentation' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-maximize2-icon lucide-maximize-2'><path d='M15 3h6v6'/><path d='m21 3-7 7'/><path d='m3 21 7-7'/><path d='M9 21H3v-6'/></svg>
                     </button>
                 </div>
             </div>
-            ${this.loading ?
+            ${this._loading ?
                 html`<div
                     aria-label='Content is loading...'
                     aria-live='polite'
