@@ -55,7 +55,7 @@ class MemorialLobbyViewer extends LitElement {
             :host {
                 display: block;
                 position: relative;
-                aspect-ratio: var(--ba-memorial-lobby-viewer-aspect-ratio, 296/211);
+                aspect-ratio: var(--ba-memorial-lobby-viewer-aspect-ratio, 320/159);
                 background: var(--ba-memorial-lobby-viewer-background, #ECF5F9);
                 box-sizing: border-box;
 
@@ -294,11 +294,11 @@ class MemorialLobbyViewer extends LitElement {
                     identifier='${this._identifier}-bg'
                     atlas=${this._bgAtlasPath}
                     skeleton=${this._bgSkelPath}
-                    bounds-x="-1776"
-                    bounds-y="0"
-                    bounds-width="3552"
-                    bounds-height="2532"
-                    scale="1.15"
+                    bounds-x="-1920"
+                    bounds-y="390"
+                    bounds-width="3840"
+                    bounds-height="1908"
+                    scale="1.4"
                     clip
                 ></spine-skeleton>`: html``}
                 <spine-skeleton
@@ -306,11 +306,11 @@ class MemorialLobbyViewer extends LitElement {
                     identifier=${this._identifier}
                     atlas=${this._atlasPath}
                     skeleton=${this._skelPath}
-                    bounds-x="-1776"
-                    bounds-y="0"
-                    bounds-width="3552"
-                    bounds-height="2532"
-                    scale="1.15"
+                    bounds-x="-1920"
+                    bounds-y="390"
+                    bounds-width="3840"
+                    bounds-height="1908"
+                    scale="1.4"
                     clip
                 ></spine-skeleton>
             </div>
