@@ -7,7 +7,7 @@ class MemorialLobbyViewer extends LitElement {
     constructor() {
         super();
         this.animation = 'Start_Idle_01';
-        this.lobbyPath = '/assets/spines/lobbies/'
+        this.lobbyPath = 'assets/spines/lobbies/'
         this.loading = true;
         this.menuOpen = false;
         this.uiHidden = false
