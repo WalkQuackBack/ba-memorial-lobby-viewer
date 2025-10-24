@@ -10,6 +10,8 @@ class MemorialLobbyViewer extends LitElement {
         this.loading = true;
         this.menuOpen = false;
         this.uiHidden = false
+
+        this._boundShowUiOnInteract = this.showUiOnInteract.bind(this);
     }
 
     static properties = {
@@ -193,11 +195,9 @@ class MemorialLobbyViewer extends LitElement {
         }
         if (changed.has('uiHidden')) {
             if (this.uiHidden) {
-                this.updateComplete.then(() => {
-                    this.spineContainer.addEventListener('click', () => {this.showUiOnInteract()})
-                    this.spineContainer.addEventListener('keydown', () => {this.showUiOnInteract()})
-                    this.spineContainer.focus()
-                });
+                this.spineContainer.addEventListener('click', this._boundShowUiOnInteract)
+                this.spineContainer.addEventListener('keydown', this._boundShowUiOnInteract)
+                this.spineContainer.focus()
             }
         }
     }
@@ -239,9 +239,12 @@ class MemorialLobbyViewer extends LitElement {
 
     showUiOnInteract() {
         this.uiHidden = false
-        this.spineContainer.removeEventListener('click', this.showUiOnInteract)
-        this.spineContainer.removeEventListener('keydown', this.showUiOnInteract)
-        this.renderRoot?.querySelector('#hide-ui-btn').focus()
+        this.spineContainer.removeEventListener('click', this._boundShowUiOnInteract)
+        this.spineContainer.removeEventListener('keydown', this._boundShowUiOnInteract)
+
+        this.updateComplete.then(() => {
+            this.renderRoot?.querySelector('#hide-ui-btn').focus()
+        });
     }
     
     render() {
