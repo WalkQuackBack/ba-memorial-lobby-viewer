@@ -280,7 +280,7 @@ class MemorialLobbyViewer extends LitElement {
                     id='menu-button'
                     title='Toggle menu'
                     aria-pressed=${this.menuOpen}
-                    aria-controls='controls'
+                    aria-controls='menu'
                     @click=${() => {this.menuOpen=!this.menuOpen}}
                 >
                     Menu
