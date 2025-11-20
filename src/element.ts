@@ -40,7 +40,7 @@ export class MemorialLobbyViewer extends LitElement {
 
   @state() _animationList: string[] = [];
   @state() _identifier = "";
-  @state() _fullscreen = false;
+  // @state() _fullscreen = false;
   @state() _loading = true;
   @state() _menuOpen = false;
   @state() _uiHidden = false;
@@ -292,13 +292,13 @@ export class MemorialLobbyViewer extends LitElement {
         this.spineContainer.focus();
       }
     }
-    if (changed.has("_fullscreen")) {
-      if (document.fullscreenElement) {
-        document.exitFullscreen();
-        return;
-      }
-      this.requestFullscreen();
-    }
+    // if (changed.has("_fullscreen")) {
+    //   if (document.fullscreenElement) {
+    //     document.exitFullscreen();
+    //     return;
+    //   }
+    //   this.requestFullscreen();
+    // }
   }
 
   private updateAnimations(): void {
@@ -357,7 +357,7 @@ export class MemorialLobbyViewer extends LitElement {
   };
 
   private toggleFullscreen = (): void => {
-    this._fullscreen = !this._fullscreen
+    // this._fullscreen = !this._fullscreen
   }
 
   private showUiOnInteract = (): void => {
@@ -545,7 +545,7 @@ export class MemorialLobbyViewer extends LitElement {
               <path d="m2 2 20 20" />
             </svg>
           </button>
-          <button
+          <!-- <button
             title="Toggle fullscreen"
             class="primary-btn"
             id="fullscreen-btn"
@@ -553,7 +553,7 @@ export class MemorialLobbyViewer extends LitElement {
             disabled
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-fullscreen-icon lucide-fullscreen"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect width="10" height="8" x="7" y="8" rx="1"/></svg>
-          </button>
+          </button> -->
         </div>
       </div>
       ${this._loading
