@@ -1,0 +1,17 @@
+body {
+  margin-inline: auto;
+  padding: 1rem;
+  font-family: 'Noto Sans', sans-serif, meiryo, meiryo ui, Yu Gothic, YuGothic;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Extra */
+summary {
+  line-height: 48px;
+  font-size: 1.25em;
+  user-select: none;
+  cursor: pointer;
+}
