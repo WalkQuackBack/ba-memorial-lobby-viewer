@@ -1,90 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <title>BA memorial lobby viewer</title>
-    <style>
-        body {
-            margin-inline: auto;
-            padding: 1rem;
-            font-family: 'Noto Sans', sans-serif,meiryo,meiryo ui,Yu Gothic,YuGothic;
-        }
 
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
+    <script type="module" crossorigin src="/src/element.ts"></script>
+    <link rel="stylesheet" crossorigin href="/src/index.css" />
+  </head>
 
-        /* Extra */
-        summary {
-            line-height: 48px;
-            font-size: 1.25em;
-            user-select: none;
-            cursor: pointer;
-        }
-    </style>
-    <script src="https://unpkg.com/@esotericsoftware/spine-webcomponents@4.2.*/dist/iife/spine-webcomponents.min.js"></script>
-</head>
-
-<body>
+  <body>
     <h1>BA memorial lobby viewer</h1>
     <details>
-        <summary>yuuka</summary>
-        <ba-memorial-lobby-viewer character="yuuka"></ba-memorial-lobby-viewer>
+      <summary>yuuka</summary>
+      <ba-memorial-lobby-viewer character="yuuka"></ba-memorial-lobby-viewer>
     </details>
     <details>
-        <summary>ch0200</summary>
-        <ba-memorial-lobby-viewer character="ch0200"></ba-memorial-lobby-viewer>
+      <summary>ch0200</summary>
+      <ba-memorial-lobby-viewer character="ch0200"></ba-memorial-lobby-viewer>
     </details>
     <details>
-        <summary>ch0284</summary>
-        <ba-memorial-lobby-viewer character="ch0284"></ba-memorial-lobby-viewer>
+      <summary>ch0284</summary>
+      <ba-memorial-lobby-viewer character="ch0284"></ba-memorial-lobby-viewer>
     </details>
     <details>
-        <summary>ch0071</summary>
-        <ba-memorial-lobby-viewer character="ch0071"></ba-memorial-lobby-viewer>
+      <summary>ch0071</summary>
+      <ba-memorial-lobby-viewer character="ch0071"></ba-memorial-lobby-viewer>
     </details>
     <details>
-        <summary>ch0319 (framing)</summary>
-        <ba-memorial-lobby-viewer character="ch0319"></ba-memorial-lobby-viewer>
+      <summary>ch0319 (framing)</summary>
+      <ba-memorial-lobby-viewer character="ch0319"></ba-memorial-lobby-viewer>
     </details>
     <details>
-        <summary>ch0182 (framing)</summary>
-        <ba-memorial-lobby-viewer character="ch0182"></ba-memorial-lobby-viewer>
+      <summary>ch0182 (framing)</summary>
+      <ba-memorial-lobby-viewer character="ch0182"></ba-memorial-lobby-viewer>
     </details>
     <details>
-        <summary>ch0184 (two part)</summary>
-        <ba-memorial-lobby-viewer character="ch0184"></ba-memorial-lobby-viewer>
-        <ba-memorial-lobby-viewer
-            character="ch0184"
-            atlasName="CH0184_00.atlas"
-            skelName="CH0184_00.skel"
-        ></ba-memorial-lobby-viewer>
+      <summary>ch0184 (two part)</summary>
+      <ba-memorial-lobby-viewer character="ch0184"></ba-memorial-lobby-viewer>
+      <ba-memorial-lobby-viewer
+        character="ch0184"
+        atlasName="CH0184_00.atlas"
+        skelName="CH0184_00.skel"
+      ></ba-memorial-lobby-viewer>
     </details>
     <details>
-        <summary>ch0261 (lens flare)</summary>
-        <ba-memorial-lobby-viewer character="ch0261"></ba-memorial-lobby-viewer>
-        <!-- <ba-memorial-lobby-viewer
+      <summary>ch0261 (lens flare)</summary>
+      <ba-memorial-lobby-viewer character="ch0261"></ba-memorial-lobby-viewer>
+      <!-- <ba-memorial-lobby-viewer
             character="ch0261"
             atlasName="CH0261_home_mod.atlas"
             skelName="CH0261_home_mod.skel"
         ></ba-memorial-lobby-viewer> -->
     </details>
     <details>
-        <summary>ch0113 (framing, vfx spark)</summary>
-        <ba-memorial-lobby-viewer character="ch0113"></ba-memorial-lobby-viewer>
+      <summary>ch0113 (framing, vfx spark)</summary>
+      <ba-memorial-lobby-viewer character="ch0113"></ba-memorial-lobby-viewer>
     </details>
     <details>
-        <summary>ch0325 (physics)</summary>
-        <ba-memorial-lobby-viewer character="ch0325"></ba-memorial-lobby-viewer>
+      <summary>ch0325 (physics)</summary>
+      <ba-memorial-lobby-viewer character="ch0325"></ba-memorial-lobby-viewer>
     </details>
     <details>
-        <summary>ch0060 (bg and fg)</summary>
-        <ba-memorial-lobby-viewer character="ch0060" separateBg></ba-memorial-lobby-viewer>
+      <summary>ch0060 (bg and fg)</summary>
+      <ba-memorial-lobby-viewer
+        character="ch0060"
+        separateBg
+      ></ba-memorial-lobby-viewer>
     </details>
-
-    <script type="module" src="./ba-memorial-lobby-viewer.js"></script>
-</body>
-
+  </body>
 </html>
