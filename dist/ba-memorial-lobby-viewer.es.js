@@ -8210,11 +8210,9 @@ function __decorate(b, w, D, O) {
 }
 var _MemorialLobbyViewer, MemorialLobbyViewer = (_MemorialLobbyViewer = class extends i {
 	constructor(...b) {
-		super(...b), this.animation = "Start_Idle_01", this.aspectRatioW = 16, this.aspectRatioH = 9, this.basePath = "assets/spines/lobbies/", this.separateBg = !1, this.character = "", this.atlasName = null, this.skelName = null, this.bgAtlasName = null, this.bgSkelName = null, this._animationList = [], this._identifier = "", this._fullscreen = !1, this._loading = !0, this._menuOpen = !1, this._uiHidden = !1, this._atlasPath = "", this._skelPath = "", this._bgAtlasPath = "", this._bgSkelPath = "", this.updateViewerAspectRatio = () => {
+		super(...b), this.animation = "Start_Idle_01", this.aspectRatioW = 16, this.aspectRatioH = 9, this.basePath = "assets/spines/lobbies/", this.separateBg = !1, this.character = "", this.atlasName = null, this.skelName = null, this.bgAtlasName = null, this.bgSkelName = null, this._animationList = [], this._identifier = "", this._loading = !0, this._menuOpen = !1, this._uiHidden = !1, this._atlasPath = "", this._skelPath = "", this._bgAtlasPath = "", this._bgSkelPath = "", this.updateViewerAspectRatio = () => {
 			this.style.setProperty("--ba-memorial-lobby-viewer-aspect-ratio", `${this.aspectRatioW}/${this.aspectRatioH}`);
-		}, this.toggleFullscreen = () => {
-			this._fullscreen = !this._fullscreen;
-		}, this.showUiOnInteract = () => {
+		}, this.toggleFullscreen = () => {}, this.showUiOnInteract = () => {
 			this._uiHidden = !1, this.spineContainer.removeEventListener("click", this.showUiOnInteract), this.spineContainer.removeEventListener("keydown", this.showUiOnInteract), this.updateComplete.then(() => {
 				var b;
 				(b = this.renderRoot) == null || (b = b.querySelector("#hide-ui-btn")) == null || b.focus();
@@ -8238,13 +8236,7 @@ var _MemorialLobbyViewer, MemorialLobbyViewer = (_MemorialLobbyViewer = class ex
 		})();
 	}
 	updated(b) {
-		if (b.has("animation") && !this._loading && this.updateAnimations(), b.has("_uiHidden") && this._uiHidden && (this.spineContainer.addEventListener("click", this.showUiOnInteract), this.spineContainer.addEventListener("keydown", this.showUiOnInteract), this.spineContainer.focus()), b.has("_fullscreen")) {
-			if (document.fullscreenElement) {
-				document.exitFullscreen();
-				return;
-			}
-			this.requestFullscreen();
-		}
+		b.has("animation") && !this._loading && this.updateAnimations(), b.has("_uiHidden") && this._uiHidden && (this.spineContainer.addEventListener("click", this.showUiOnInteract), this.spineContainer.addEventListener("keydown", this.showUiOnInteract), this.spineContainer.focus());
 	}
 	updateAnimations() {
 		if (!this.animation || !this.spineRenderer.state || (this.spineRenderer.state.setAnimation(0, this.animation, !1), this.spineRenderer.state.tracks[1] === null && this.spineRenderer.state.setAnimation(1, "Idle_01", !0), (this.animation.startsWith("Start_Idle") || this.animation === "Dummy") && this.spineRenderer.state.setEmptyAnimation(1), !this.separateBg || !this.spineRendererBg) || !this.spineRendererBg.state) return;
@@ -8417,7 +8409,7 @@ var _MemorialLobbyViewer, MemorialLobbyViewer = (_MemorialLobbyViewer = class ex
               <path d="m2 2 20 20" />
             </svg>
           </button>
-          <button
+          <!-- <button
             title="Toggle fullscreen"
             class="primary-btn"
             id="fullscreen-btn"
@@ -8425,7 +8417,7 @@ var _MemorialLobbyViewer, MemorialLobbyViewer = (_MemorialLobbyViewer = class ex
             disabled
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-fullscreen-icon lucide-fullscreen"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect width="10" height="8" x="7" y="8" rx="1"/></svg>
-          </button>
+          </button> -->
         </div>
       </div>
       ${this._loading ? x`<div
@@ -8615,7 +8607,7 @@ var _MemorialLobbyViewer, MemorialLobbyViewer = (_MemorialLobbyViewer = class ex
 	mode: "open",
 	delegatesFocus: !0
 }, _MemorialLobbyViewer);
-__decorate([n({ type: String })], MemorialLobbyViewer.prototype, "animation", void 0), __decorate([n({ type: Number })], MemorialLobbyViewer.prototype, "aspectRatioW", void 0), __decorate([n({ type: Number })], MemorialLobbyViewer.prototype, "aspectRatioH", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "basePath", void 0), __decorate([n({ type: Boolean })], MemorialLobbyViewer.prototype, "separateBg", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "character", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "atlasName", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "skelName", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "bgAtlasName", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "bgSkelName", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_animationList", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_identifier", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_fullscreen", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_loading", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_menuOpen", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_uiHidden", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_atlasPath", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_skelPath", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_bgAtlasPath", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_bgSkelPath", void 0), __decorate([e("#spine-container")], MemorialLobbyViewer.prototype, "spineContainer", void 0), __decorate([e("#spine-skeleton-main")], MemorialLobbyViewer.prototype, "spineRenderer", void 0), __decorate([e("#spine-skeleton-bg")], MemorialLobbyViewer.prototype, "spineRendererBg", void 0), MemorialLobbyViewer = __decorate([t("ba-memorial-lobby-viewer")], MemorialLobbyViewer);
+__decorate([n({ type: String })], MemorialLobbyViewer.prototype, "animation", void 0), __decorate([n({ type: Number })], MemorialLobbyViewer.prototype, "aspectRatioW", void 0), __decorate([n({ type: Number })], MemorialLobbyViewer.prototype, "aspectRatioH", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "basePath", void 0), __decorate([n({ type: Boolean })], MemorialLobbyViewer.prototype, "separateBg", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "character", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "atlasName", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "skelName", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "bgAtlasName", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "bgSkelName", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_animationList", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_identifier", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_loading", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_menuOpen", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_uiHidden", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_atlasPath", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_skelPath", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_bgAtlasPath", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_bgSkelPath", void 0), __decorate([e("#spine-container")], MemorialLobbyViewer.prototype, "spineContainer", void 0), __decorate([e("#spine-skeleton-main")], MemorialLobbyViewer.prototype, "spineRenderer", void 0), __decorate([e("#spine-skeleton-bg")], MemorialLobbyViewer.prototype, "spineRendererBg", void 0), MemorialLobbyViewer = __decorate([t("ba-memorial-lobby-viewer")], MemorialLobbyViewer);
 export { MemorialLobbyViewer };
 
 //# sourceMappingURL=ba-memorial-lobby-viewer.es.js.map
