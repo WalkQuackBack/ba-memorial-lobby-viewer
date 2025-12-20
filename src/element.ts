@@ -391,7 +391,7 @@ export class MemorialLobbyViewer extends LitElement {
               bounds-width="3840"
               bounds-height="1908"
               scale="1.4"
-              overlay-id="ba-memorial-lobby-viewer-${this._identifier}"
+              overlay-id="${this._uniqueId}"
               clip
             ></spine-skeleton>`
           : ""}
