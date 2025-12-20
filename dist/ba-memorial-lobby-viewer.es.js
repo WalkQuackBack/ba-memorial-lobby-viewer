@@ -8210,7 +8210,7 @@ function __decorate(b, w, D, O) {
 }
 var _MemorialLobbyViewer, MemorialLobbyViewer = (_MemorialLobbyViewer = class extends i {
 	constructor(...b) {
-		super(...b), this.animation = "Start_Idle_01", this.aspectRatioW = 16, this.aspectRatioH = 9, this.basePath = "assets/spines/lobbies/", this.separateBg = !1, this.character = "", this.atlasName = null, this.skelName = null, this.bgAtlasName = null, this.bgSkelName = null, this._animationList = [], this._identifier = "", this._loading = !0, this._menuOpen = !1, this._uiHidden = !1, this._atlasPath = "", this._skelPath = "", this._bgAtlasPath = "", this._bgSkelPath = "", this.updateViewerAspectRatio = () => {
+		super(...b), this.animation = "Start_Idle_01", this.aspectRatioW = 16, this.aspectRatioH = 9, this.basePath = "assets/spines/lobbies/", this.separateBg = !1, this.character = "", this.atlasName = null, this.skelName = null, this.bgAtlasName = null, this.bgSkelName = null, this._uniqueId = crypto.randomUUID(), this._animationList = [], this._identifier = "", this._loading = !0, this._menuOpen = !1, this._uiHidden = !1, this._atlasPath = "", this._skelPath = "", this._bgAtlasPath = "", this._bgSkelPath = "", this.updateViewerAspectRatio = () => {
 			this.style.setProperty("--ba-memorial-lobby-viewer-aspect-ratio", `${this.aspectRatioW}/${this.aspectRatioH}`);
 		}, this.toggleFullscreen = () => {}, this.showUiOnInteract = () => {
 			this._uiHidden = !1, this.spineContainer.removeEventListener("click", this.showUiOnInteract), this.spineContainer.removeEventListener("keydown", this.showUiOnInteract), this.updateComplete.then(() => {
@@ -8266,6 +8266,7 @@ var _MemorialLobbyViewer, MemorialLobbyViewer = (_MemorialLobbyViewer = class ex
               bounds-width="3840"
               bounds-height="1908"
               scale="1.4"
+              overlay-id="ba-memorial-lobby-viewer-${this._identifier}"
               clip
             ></spine-skeleton>` : ""}
         <spine-skeleton
@@ -8278,8 +8279,10 @@ var _MemorialLobbyViewer, MemorialLobbyViewer = (_MemorialLobbyViewer = class ex
           bounds-width="3840"
           bounds-height="2160"
           scale="1.2"
+          overlay-id="${this._uniqueId}"
           clip
         ></spine-skeleton>
+        <spine-overlay overlay-id="${this._uniqueId}"></spine-overlay>
       </div>
       <div id="ui" ?hidden=${this._uiHidden}>
         <button
@@ -8439,7 +8442,7 @@ var _MemorialLobbyViewer, MemorialLobbyViewer = (_MemorialLobbyViewer = class ex
       max-height: 90vh;
       max-height: 90lvh;
 
-      contain: size style;
+      contain: strict;
 
       font-family: "Noto Sans", sans-serif, meiryo, meiryo ui, Yu Gothic,
         YuGothic;
@@ -8607,7 +8610,7 @@ var _MemorialLobbyViewer, MemorialLobbyViewer = (_MemorialLobbyViewer = class ex
 	mode: "open",
 	delegatesFocus: !0
 }, _MemorialLobbyViewer);
-__decorate([n({ type: String })], MemorialLobbyViewer.prototype, "animation", void 0), __decorate([n({ type: Number })], MemorialLobbyViewer.prototype, "aspectRatioW", void 0), __decorate([n({ type: Number })], MemorialLobbyViewer.prototype, "aspectRatioH", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "basePath", void 0), __decorate([n({ type: Boolean })], MemorialLobbyViewer.prototype, "separateBg", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "character", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "atlasName", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "skelName", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "bgAtlasName", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "bgSkelName", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_animationList", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_identifier", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_loading", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_menuOpen", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_uiHidden", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_atlasPath", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_skelPath", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_bgAtlasPath", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_bgSkelPath", void 0), __decorate([e("#spine-container")], MemorialLobbyViewer.prototype, "spineContainer", void 0), __decorate([e("#spine-skeleton-main")], MemorialLobbyViewer.prototype, "spineRenderer", void 0), __decorate([e("#spine-skeleton-bg")], MemorialLobbyViewer.prototype, "spineRendererBg", void 0), MemorialLobbyViewer = __decorate([t("ba-memorial-lobby-viewer")], MemorialLobbyViewer);
+__decorate([n({ type: String })], MemorialLobbyViewer.prototype, "animation", void 0), __decorate([n({ type: Number })], MemorialLobbyViewer.prototype, "aspectRatioW", void 0), __decorate([n({ type: Number })], MemorialLobbyViewer.prototype, "aspectRatioH", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "basePath", void 0), __decorate([n({ type: Boolean })], MemorialLobbyViewer.prototype, "separateBg", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "character", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "atlasName", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "skelName", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "bgAtlasName", void 0), __decorate([n({ type: String })], MemorialLobbyViewer.prototype, "bgSkelName", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_uniqueId", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_animationList", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_identifier", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_loading", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_menuOpen", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_uiHidden", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_atlasPath", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_skelPath", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_bgAtlasPath", void 0), __decorate([r()], MemorialLobbyViewer.prototype, "_bgSkelPath", void 0), __decorate([e("#spine-container")], MemorialLobbyViewer.prototype, "spineContainer", void 0), __decorate([e("#spine-skeleton-main")], MemorialLobbyViewer.prototype, "spineRenderer", void 0), __decorate([e("#spine-skeleton-bg")], MemorialLobbyViewer.prototype, "spineRendererBg", void 0), MemorialLobbyViewer = __decorate([t("ba-memorial-lobby-viewer")], MemorialLobbyViewer);
 export { MemorialLobbyViewer };
 
 //# sourceMappingURL=ba-memorial-lobby-viewer.es.js.map

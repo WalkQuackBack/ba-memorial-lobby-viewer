@@ -38,6 +38,7 @@ export class MemorialLobbyViewer extends LitElement {
   @property({ type: String })
   bgSkelName: string | null = null;
 
+  @state() _uniqueId = crypto.randomUUID();
   @state() _animationList: string[] = [];
   @state() _identifier = "";
   // @state() _fullscreen = false;
@@ -69,7 +70,7 @@ export class MemorialLobbyViewer extends LitElement {
       max-height: 90vh;
       max-height: 90lvh;
 
-      contain: size style;
+      contain: strict;
 
       font-family: "Noto Sans", sans-serif, meiryo, meiryo ui, Yu Gothic,
         YuGothic;
@@ -390,6 +391,7 @@ export class MemorialLobbyViewer extends LitElement {
               bounds-width="3840"
               bounds-height="1908"
               scale="1.4"
+              overlay-id="ba-memorial-lobby-viewer-${this._identifier}"
               clip
             ></spine-skeleton>`
           : ""}
@@ -403,8 +405,10 @@ export class MemorialLobbyViewer extends LitElement {
           bounds-width="3840"
           bounds-height="2160"
           scale="1.2"
+          overlay-id="${this._uniqueId}"
           clip
         ></spine-skeleton>
+        <spine-overlay overlay-id="${this._uniqueId}"></spine-overlay>
       </div>
       <div id="ui" ?hidden=${this._uiHidden}>
         <button
