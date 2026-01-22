@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "dev": "vite ./preview",
-    "build": "tsc && vite build"
+    "build": "tsc && vite build",
+    "build:demo": "vite build preview"
   },
   "type": "module",
   "dependencies": {
