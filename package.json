@@ -1,13 +1,18 @@
 {
   "name": "ba-memorial-lobby-viewer",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "0.1.0",
+  "main": "./dist/ba-memorial-lobby-viewer.umd.cjs",
+  "module": "./dist/ba-memorial-lobby-viewer.js",
+  "types": "./dist/element.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "tsc && vite build"
   },
+  "type": "module",
   "dependencies": {
     "@esotericsoftware/spine-webcomponents": "^4.2.95",
     "lit": "^3.3.1"
