@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
       target: ['es2015'],
       cssMinify: true,
       lib: isDemoBuild ? false : {
-        entry: './src/element.ts',
+        entry: './src/index.ts',
         name: 'BaMemorialLobbyViewer',
         fileName: (format) => `ba-memorial-lobby-viewer.${format}.js`,
         formats: ['es', 'umd', 'cjs'],
