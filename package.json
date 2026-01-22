@@ -1,6 +1,6 @@
 {
   "name": "ba-memorial-lobby-viewer",
-  "private": true,
+  "private": false,
   "version": "0.1.0",
   "main": "./dist/ba-memorial-lobby-viewer.js",
   "module": "./dist/ba-memorial-lobby-viewer.js",
