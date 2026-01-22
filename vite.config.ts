@@ -10,12 +10,16 @@ export default defineConfig(({ mode }) => {
       assetsDir: 'src',
       target: ['es2015'],
       cssMinify: true,
+      minify: false,
       lib: isDemoBuild ? false : {
         entry: './src/index.ts',
         name: 'BaMemorialLobbyViewer',
         fileName: (format) => `ba-memorial-lobby-viewer.${format}.js`,
         formats: ['es', 'umd', 'cjs'],
       },
+      rollupOptions: {
+        external: ['lit', '@esotericsoftware/spine-webcomponents']
+      }
     },
   }
 })

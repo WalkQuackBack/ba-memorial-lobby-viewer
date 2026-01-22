@@ -1,0 +1,313 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "MemorialLobbyViewer",
+          "members": [
+            {
+              "kind": "field",
+              "name": "animation",
+              "type": {
+                "text": "string | null"
+              },
+              "default": "\"Start_Idle_01\""
+            },
+            {
+              "kind": "field",
+              "name": "aspectRatioW",
+              "type": {
+                "text": "number"
+              },
+              "default": "16"
+            },
+            {
+              "kind": "field",
+              "name": "aspectRatioH",
+              "type": {
+                "text": "number"
+              },
+              "default": "9"
+            },
+            {
+              "kind": "field",
+              "name": "basePath",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"assets/spines/lobbies/\""
+            },
+            {
+              "kind": "field",
+              "name": "separateBg",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "character",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "atlasName",
+              "type": {
+                "text": "string | null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "skelName",
+              "type": {
+                "text": "string | null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "bgAtlasName",
+              "type": {
+                "text": "string | null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "bgSkelName",
+              "type": {
+                "text": "string | null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_uniqueId"
+            },
+            {
+              "kind": "field",
+              "name": "_animationList",
+              "type": {
+                "text": "string[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "_identifier",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "_loading",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "_menuOpen",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "_uiHidden",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "_atlasPath",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "_skelPath",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "_bgAtlasPath",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "_bgSkelPath",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\""
+            },
+            {
+              "kind": "field",
+              "name": "spineContainer",
+              "type": {
+                "text": "HTMLDivElement"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "spineRenderer",
+              "type": {
+                "text": "SpineWebComponentSkeleton"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "spineRendererBg",
+              "type": {
+                "text": "SpineWebComponentSkeleton | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true,
+              "default": "css` :host { display: block; position: relative; aspect-ratio: var(--ba-memorial-lobby-viewer-aspect-ratio); background: var(--ba-memorial-lobby-viewer-background, #ecf5f9); box-sizing: border-box; max-height: 90vh; max-height: 90lvh; contain: strict; font-family: \"Noto Sans\", sans-serif, meiryo, meiryo ui, Yu Gothic, YuGothic; } #spine-container { position: absolute; inset: 0; } .ui-hidden { cursor: pointer; } button, select, input[type=\"number\"] { block-size: 44px; padding: 0 12px; border-radius: 4px; border: 0; font: inherit; background-color: var( --ba-memorial-lobby-viewer-base-color, hsl(214 36% 100% / 100%) ); color: var( --ba-memorial-lobby-viewer-inverted-color, hsl(214 36% 30% / 100%) ); box-shadow: 0 2px 4px hsl(0 0 0 / 20%); display: flex; align-items: center; justify-content: center; transition: 120ms scale cubic-bezier(0.25, 0.1, 0.39, 1.2); &:disabled { opacity: 0.38; } } input.aspect-ratio-input { text-align: center; font: inherit; width: calc(2ch + 0.25rem); } @media (pointer: fine) { input.aspect-ratio-input { width: calc(2ch + 1rem); padding-inline-end: 0; } } button { font-size: 1.25em; font-weight: 700; padding: 0 20px; &:not(:disabled) { cursor: pointer; } &:not(:disabled):active { scale: 0.925; } } select { inline-size: auto; } #menu-button { position: absolute; top: 12px; right: 20px; transform: skew(-10deg); z-index: 20; &[aria-pressed=\"true\"] { background-color: var( --ba-memorial-lobby-viewer-inverted-color, hsl(214 36% 30% / 100%) ); color: var( --ba-memorial-lobby-viewer-base-color, hsl(214 36% 100% / 100%) ); } } #menu { position: absolute; top: calc(44px + 12px + 8px); right: 20px; padding: 10px; background-color: var( --ba-memorial-lobby-viewer-menu-color, hsl(0 0 100 / 70%) ); border-radius: 8px; flex-wrap: wrap; display: flex; justify-content: flex-end; gap: 6px; z-index: 20; } #menu > button { inline-size: 48px; padding: 0; } .primary-btn { background-color: var( --ba-memorial-lobby-viewer-inverted-color, hsl(214 36% 30% / 100%) ); color: var( --ba-memorial-lobby-viewer-base-color, hsl(214 36% 100% / 100%) ); } hr { border-color: var( --ba-memorial-lobby-viewer-subtle-color, hsl(214 10% 50% / 20%) ); margin-inline-start: 0; margin-inline-end: 0; } .loader { position: absolute; border-radius: 50%; top: 50%; left: 50%; margin-top: -16px; margin-left: -16px; height: 32px; width: 32px; border-width: 3px; border-style: solid; border-color: hsl(189 100 50 / 0.25); border-top-color: hsl(189 100 50 / 1); animation: loader 1s linear infinite; z-index: 99; } @keyframes loader { to { transform: rotate(360deg); } } [hidden] { display: none !important; } `"
+            },
+            {
+              "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "ShadowRootInit"
+              },
+              "static": true,
+              "default": "{ mode: \"open\", delegatesFocus: true, }"
+            },
+            {
+              "kind": "method",
+              "name": "firstUpdated",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "updated",
+              "privacy": "protected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "changed",
+                  "type": {
+                    "text": "PropertyValues<this>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "updateAnimations",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "restartAnimations",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "transformCharacterNameToFileName",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "updateViewerAspectRatio",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "toggleFullscreen",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "showUiOnInteract",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "render"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MemorialLobbyViewer",
+          "declaration": {
+            "name": "MemorialLobbyViewer",
+            "module": "src/index.ts"
+          }
+        }
+      ]
+    }
+  ]
+}
